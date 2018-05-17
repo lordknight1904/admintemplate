@@ -18,6 +18,7 @@ class Container extends React.Component {
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
+
   render() {
     const { classes, app } = this.props;
     return (
@@ -38,13 +39,15 @@ class Container extends React.Component {
               handleDrawerToggle={this.handleDrawerToggle}
             />
             <div className={classes.content}>
-              <Switch key="switch">
-                {paths.map((prop, key) => {
-                  if (prop.redirect)
-                    return <Redirect from={prop.path} to={prop.to} key={key} />;
-                  return <Route path={prop.path} component={prop.component} key={key} />;
-                })}
-              </Switch>
+              <div className={classes.container}>
+                <Switch key="switch">
+                  {paths.map((prop, key) => {
+                    if (prop.redirect)
+                      return <Redirect from={prop.path} to={prop.to} key={key} />;
+                    return <Route path={prop.path} component={prop.component} key={key} />;
+                  })}
+                </Switch>
+              </div>
             </div>
           </div>
         </div>
@@ -55,7 +58,8 @@ class Container extends React.Component {
       )
     )
   }
-};
+}
+
 Container.propTypes = {
   classes: PropTypes.object.isRequired,
   app: PropTypes.object.isRequired,

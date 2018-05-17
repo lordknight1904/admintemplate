@@ -15,14 +15,14 @@ const paths = [
   {
     path: "/dashboard",
     sidebarName: "Dashboard",
-    navbarName: "Material Dashboard",
+    navbarName: "Dashboard",
     icon: Dashboard,
     component: DashboardPage
   },
   {
     path: "/admin",
     sidebarName: "Admin",
-    navbarName: "Material Dashboard",
+    navbarName: "Admin",
     icon: Person,
     component: AdminPage
   },

@@ -1,11 +1,12 @@
 
-import { drawerWidth, transition, container } from "../theme";
+import { drawerWidth, transition, container, backgroundColor } from "../theme";
 
 const appStyle = theme => ({
   wrapper: {
     position: "relative",
     top: "0",
-    height: "100vh"
+    height: "100vh",
+    backgroundColor: backgroundColor,
   },
   mainPanel: {
     [theme.breakpoints.up("md")]: {

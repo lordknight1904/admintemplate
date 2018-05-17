@@ -24,7 +24,8 @@ const card = {
   boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.14)",
   borderRadius: "3px",
   color: "rgba(0, 0, 0, 0.87)",
-  background: "#fff"
+  background: "#fff",
+  overflow: 'inherit',
 };
 
 const defaultFont = {
@@ -33,6 +34,7 @@ const defaultFont = {
   lineHeight: "1.5em"
 };
 
+const backgroundColor = "#EEEEEE";
 const primaryColor = "#9c27b0";
 const warningColor = "#ff9800";
 const dangerColor = "#f44336";
@@ -133,5 +135,6 @@ export {
   purpleCardHeader,
   cardActions,
   cardHeader,
-  defaultBoxShadow
+  defaultBoxShadow,
+  backgroundColor,
 };
