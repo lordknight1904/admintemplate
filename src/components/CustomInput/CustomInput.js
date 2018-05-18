@@ -15,7 +15,9 @@ function CustomInput({ ...props }) {
     labelProps,
     inputProps,
     error,
-    success
+    success,
+    onChange,
+    name,
   } = props;
 
   const labelClasses = cx({
@@ -51,6 +53,8 @@ function CustomInput({ ...props }) {
           underline: underlineClasses,
         }}
         id={id}
+        name={name}
+        onChange={onChange}
         {...inputProps}
       />
       {error ? (

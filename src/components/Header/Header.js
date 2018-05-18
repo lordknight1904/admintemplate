@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Menu } from "@material-ui/icons";
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
 import {
   withStyles,
   AppBar,

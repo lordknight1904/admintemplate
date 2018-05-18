@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router'
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Login/Login";
 import SideBar from "./SideBar";
 import Header from "../components/Header/Header";
 import paths from './paths';
+import dashboardPaths from './dashboardPaths';
 import { withStyles } from 'material-ui';
 import appStyle from "../assets/jss/components/appStyle";
 import image from "../assets/images/sidebar-2.jpg";
@@ -25,7 +27,7 @@ class Container extends React.Component {
       this.props.app.admin.token === '' ? (
         <div className={classes.wrapper}>
           <SideBar
-            paths={paths}
+            paths={dashboardPaths}
             logoText={app.appName}
             logo={logo}
             image={image}
@@ -35,13 +37,13 @@ class Container extends React.Component {
           />
           <div className={classes.mainPanel}>
             <Header
-              paths={paths}
+              paths={paths.concat(dashboardPaths)}
               handleDrawerToggle={this.handleDrawerToggle}
             />
             <div className={classes.content}>
               <div className={classes.container}>
                 <Switch key="switch">
-                  {paths.map((prop, key) => {
+                  {paths.concat(dashboardPaths).map((prop, key) => {
                     if (prop.redirect)
                       return <Redirect from={prop.path} to={prop.to} key={key} />;
                     return <Route path={prop.path} component={prop.component} key={key} />;
@@ -68,4 +70,4 @@ Container.propTypes = {
 const mapStateToProps = ({ app }) => ({
   app,
 });
-export default connect(mapStateToProps)(withStyles(appStyle)(Container));
+export default withRouter(connect(mapStateToProps)(withStyles(appStyle)(Container)));

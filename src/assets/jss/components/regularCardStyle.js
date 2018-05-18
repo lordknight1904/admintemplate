@@ -49,6 +49,9 @@ const regularCardStyle = {
     padding: "14px",
     display: "block",
     height: "auto"
+  },
+  cardHeaderAction: {
+    marginRight: 0
   }
 };
 
