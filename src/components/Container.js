@@ -7,7 +7,6 @@ import Login from "./Login/Login";
 import SideBar from "./SideBar";
 import Header from "../components/Header/Header";
 import paths from './paths';
-import dashboardPaths from './dashboardPaths';
 import { withStyles } from 'material-ui';
 import appStyle from "../assets/jss/components/appStyle";
 import image from "../assets/images/sidebar-2.jpg";
@@ -20,14 +19,13 @@ class Container extends React.Component {
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
-
   render() {
     const { classes, app } = this.props;
     return (
       this.props.app.admin.token === '' ? (
         <div className={classes.wrapper}>
           <SideBar
-            paths={dashboardPaths}
+            paths={paths}
             logoText={app.appName}
             logo={logo}
             image={image}
@@ -37,16 +35,16 @@ class Container extends React.Component {
           />
           <div className={classes.mainPanel}>
             <Header
-              paths={paths.concat(dashboardPaths)}
+              paths={paths}
               handleDrawerToggle={this.handleDrawerToggle}
             />
             <div className={classes.content}>
               <div className={classes.container}>
                 <Switch key="switch">
-                  {paths.concat(dashboardPaths).map((prop, key) => {
+                  {paths.map((prop, key) => {
                     if (prop.redirect)
                       return <Redirect from={prop.path} to={prop.to} key={key} />;
-                    return <Route path={prop.path} component={prop.component} key={key} />;
+                    return <Route path={prop.path} exact={prop.exact} component={prop.component} key={key} />;
                   })}
                 </Switch>
               </div>

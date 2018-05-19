@@ -1,4 +1,5 @@
 const drawerWidth = 240;
+const spacingUnit = 8;
 
 const transition = {
   transition: "all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)"
@@ -137,4 +138,5 @@ export {
   cardHeader,
   defaultBoxShadow,
   backgroundColor,
+  spacingUnit,
 };

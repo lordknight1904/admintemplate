@@ -12,12 +12,63 @@ import ItemGrid from "../../components/Grid/ItemGrid";
 import CustomButton from '../CustomButtons/Button';
 import { bindActionCreators } from "redux";
 import moment from "moment/moment";
+import Button from '@material-ui/core/Button';
+import { Build, Delete, Lock } from "@material-ui/icons";
+import { setCurrentPage, setEdit } from '../../reducers/admin';
 
 class Admin extends Component {
+  state = {
+    rowsPerPage: 5,
+  };
+  handleChangePage = (event, page) => {
+    this.props.setCurrentPage(page);
+  };
+  handleChangeRowsPerPage = event => {
+    this.setState({ rowsPerPage: event.target.value });
+  };
+  handleFirstPageButtonClick = event => {
+    this.handleChangePage(event, 0);
+  };
+  handleBackButtonClick = event => {
+    this.handleChangePage(event, this.props.page - 1);
+  };
+  handleNextButtonClick = event => {
+    this.handleChangePage(event, this.props.page + 1);
+  };
+  handleLastPageButtonClick = event => {
+    this.handleChangePage(
+      event,
+      Math.max(0, Math.ceil(this.props.admin.admin.length / this.state.rowsPerPage) - 1),
+    );
+  };
+
+  onEdit = (key) => {
+    this.props.setEdit(this.props.admin.admin[key + this.state.rowsPerPage * this.props.admin.currentPage]);
+  };
   render() {
-    const { admin } = this.props;
+    const { classes, admin } = this.props;
+    const editButton = props => (
+      <Link key="edit" to={`${this.props.location.pathname}/edit`} style={{ textDecoration: 'none' }}>
+        <Button key="edit" onClick={() => this.onEdit(props)} variant="fab" mini color="primary" aria-label="edit" classes={{ mini: classes.buttonMini }}>
+          <Build />
+        </Button>
+      </Link>
+    );
+    const deActiveButton = props => (
+      <Button key="deActive" variant="fab" mini color="default" aria-label="deactive"
+              classes={{ mini: classes.buttonMini }}>
+        <Lock />
+      </Button>
+    );
+    const deleteButton = props => (
+      <Button key="delete" variant="fab" mini color="secondary" aria-label="delete"
+              classes={{ mini: classes.buttonMini }}>
+        <Delete />
+      </Button>
+    );
+    const actions = [editButton, deActiveButton, deleteButton];
     const data = admin.admin.map(ad => {
-      return [ad.username, ad.role.name, moment(ad.dateCreated).format('MMMM Do YYYY, h:mm')]
+      return [ad.username, ad.role.name, moment(ad.dateCreated).format('MMMM Do YYYY, h:mm'), actions];
     });
     return (
       <Grid container>
@@ -35,8 +86,16 @@ class Admin extends Component {
             content={
               <Table
                 tableHeaderColor="primary"
-                tableHead={["Username", "Role", "Date Created"]}
+                tableHead={["Username", "Role", "Date Created", "Actions"]}
                 tableData={data}
+                page={admin.currentPage}
+                rowsPerPage={this.state.rowsPerPage}
+                handleChangePage={this.handleChangePage}
+                handleChangeRowsPerPage={this.handleChangeRowsPerPage}
+                handleFirstPageButtonClick={this.handleFirstPageButtonClick}
+                handleBackButtonClick={this.handleBackButtonClick}
+                handleNextButtonClick={this.handleNextButtonClick}
+                handleLastPageButtonClick={this.handleLastPageButtonClick}
               />
             }
           />
@@ -49,6 +108,7 @@ class Admin extends Component {
 Admin.propTypes = {
   classes: PropTypes.object.isRequired,
   admin: PropTypes.object.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ admin }) => ({
@@ -57,7 +117,9 @@ const mapStateToProps = ({ admin }) => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
+      setCurrentPage,
+      setEdit,
     },
     dispatch,
   );
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(appStyle)(withRouter(Admin)));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(appStyle)(Admin)));

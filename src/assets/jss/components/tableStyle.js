@@ -52,12 +52,28 @@ const tableStyle = theme => ({
     ...defaultFont,
     lineHeight: "1.42857143",
     padding: "12px 8px",
-    verticalAlign: "middle"
+    verticalAlign: "middle",
+    "&:first-child": {
+      marginLeft: '0',
+    },
+    "&:last-child": {
+      marginRight: '0',
+    }
+  },
+  tableCellLoading: {
+    ...defaultFont,
+    lineHeight: "1.42857143",
+    padding: "0 !important",
+    borderBottom: "none",
+    verticalAlign: "top",
   },
   tableResponsive: {
     width: "100%",
     // marginTop: theme.spacing.unit * 3,
     overflowX: "auto"
+  },
+  emptyTableFooter: {
+    height: '0',
   }
 });
 

@@ -25,7 +25,7 @@ const Sidebar = ({ ...props }) => {
   const links = (
     <List className={classes.list}>
       {paths.map((prop, key) => {
-        if (prop.redirect) return null;
+        if (prop.redirect || !prop.onSide) return null;
         const listItemClasses = cx({
           [" " + classes[color]]: activeRoute(prop.path)
         });

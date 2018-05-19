@@ -2,6 +2,7 @@ import React from 'react';
 
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import { Route } from "react-router-dom";
 import { ConnectedRouter } from 'react-router-redux';
 // import registerServiceWorker from './registerServiceWorker';
 
@@ -16,7 +17,7 @@ render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <div>
-        <App />
+        <Route component={App} />
       </div>
     </ConnectedRouter>
   </Provider>,

@@ -6,7 +6,7 @@ export const ACTIONS = {
 
 const initialState = {
   role: [],
-  currentPage: 1,
+  currentPage: 0,
 };
 export default (state = initialState, action) => {
   switch (action.type) {

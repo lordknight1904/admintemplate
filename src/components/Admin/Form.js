@@ -32,9 +32,7 @@ class Form extends Component {
       password,
       role: Role ? Role._id : undefined,
     };
-    console.log(admin);
     this.props.createAdmin(admin).then(res => {
-      console.log(res);
       if (!res.hasOwnProperty('error')) {
         this.setState({
           isSubmitting: false,
@@ -128,4 +126,4 @@ const mapDispatchToProps = dispatch =>
     },
     dispatch,
   );
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(appStyle)(withRouter(Form)));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(appStyle)(Form)));

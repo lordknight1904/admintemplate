@@ -12,6 +12,30 @@ import Table from "../../components/Table/Table";
 import ItemGrid from "../../components/Grid/ItemGrid";
 
 class Role extends Component {
+  state = {
+    rowsPerPage: 5,
+  };
+  handleChangePage = (event, page) => {
+    this.props.setCurrentPage(page);
+  };
+  handleChangeRowsPerPage = event => {
+    this.setState({ rowsPerPage: event.target.value });
+  };
+  handleFirstPageButtonClick = event => {
+    this.handleChangePage(event, 0);
+  };
+  handleBackButtonClick = event => {
+    this.handleChangePage(event, this.props.page - 1);
+  };
+  handleNextButtonClick = event => {
+    this.handleChangePage(event, this.props.page + 1);
+  };
+  handleLastPageButtonClick = event => {
+    this.handleChangePage(
+      event,
+      Math.max(0, Math.ceil(this.props.role.role.length / this.state.rowsPerPage) - 1),
+    );
+  };
   render() {
     const { role } = this.props;
     const data = role.role.map(r => {
@@ -27,6 +51,14 @@ class Role extends Component {
                 tableHeaderColor="primary"
                 tableHead={["Name", "Date Created"]}
                 tableData={data}
+                page={role.currentPage}
+                rowsPerPage={this.state.rowsPerPage}
+                handleChangePage={this.handleChangePage}
+                handleChangeRowsPerPage={this.handleChangeRowsPerPage}
+                handleFirstPageButtonClick={this.handleFirstPageButtonClick}
+                handleBackButtonClick={this.handleBackButtonClick}
+                handleNextButtonClick={this.handleNextButtonClick}
+                handleLastPageButtonClick={this.handleLastPageButtonClick}
               />
             }
           />

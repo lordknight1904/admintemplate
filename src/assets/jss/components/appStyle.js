@@ -1,5 +1,5 @@
 
-import { drawerWidth, transition, container, backgroundColor } from "../theme";
+import { drawerWidth, transition, container, backgroundColor, spacingUnit } from "../theme";
 
 const appStyle = theme => ({
   wrapper: {
@@ -28,6 +28,14 @@ const appStyle = theme => ({
   container,
   map: {
     marginTop: "70px"
+  },
+  buttonMini: {
+    width: '35px',
+    height: '35px',
+    margin: `0 ${spacingUnit}px`,
+    '& svg': {
+      fontSize: '14px',
+    }
   }
 });
 
